@@ -1,2 +1,65 @@
-sd
+#### 环形进度条
 
+> html
+
+```html
+<div class="progress-ring">  
+  <div class="progress-track"></div>
+  <div class="progress-left"></div>
+  <div class="progress-right"></div>
+  <div class="progress-cover"></div>
+  <div class="progress-text">
+    <span class="progress-num">80</span>
+    <span class="progress-percent">%</span>
+  </div>
+</div> 
+```
+
+> less
+
+```less
+@size: 130px; // 圆环宽高
+@borderWidth: (@size / 8); // 轨道宽度
+@fontColor: #949494; // 文字颜色
+
+.positioning(@pos: absolute) {
+  position: @pos;
+  top: 0;
+  left: 0;
+  height: @size;
+  width: @size;
+}
+.progress-ring {
+  .positioning(relative);
+  div {
+    .positioning;
+    border: @borderWidth solid  rgb(248, 213, 213);
+    border-radius: 50%;
+    box-sizing: border-box;
+  }
+  .progress-left, .progress-right, .progress-cover {
+    clip: rect(0 (@size / 2) @size 0); //[0 | <width/2> | <width> | 0]
+  }
+  .progress-left, .progress-right {
+    border-color: rgb(255, 66, 66);
+  }
+  .progress-left {
+    opacity: 0;
+    transform: rotate(180deg); //旋转到右边
+  }
+  .progress-right {
+    transform: rotate(120deg); //旋转到右边
+  }
+  .progress-cover {
+    opacity: 1;
+  }
+  .progress-text{
+    border: none;
+    font-family: "Arial", sans-serif;
+    text-align: center;
+    font-size: 32.5px;
+    color: #949494;
+    line-height: @size;
+  }
+}
+```
